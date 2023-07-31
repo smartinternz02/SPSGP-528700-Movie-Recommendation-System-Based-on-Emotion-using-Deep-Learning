@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e6f7ff;
+  background-image: url('images/1.jpg');
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  
+}
+
+.container {
+  width: 1000px;
+  margin: auto;
+}
+
+.myDiv {
+  position:relative;
+  top: 30;
+  width: 1000;
+  height: 150;
+  margin: auto;
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.movie-list {
+  list-style: none;
+  padding: 0;
+}
+
+.movie-list li {
+  margin: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.movie-list li:hover {
+  transform: translateY(-5px);
+}
+
+.movie-image {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+
+.movie-box {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.movie-name {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.movie-happy { color: green; }
+.movie-angry { color: red; }
+.movie-disgust { color: purple; }
+.movie-think { color: orange; }
+.movie-sad { color: blue; }
+
+a:link, a:visited {
+  color: black;
+  text-decoration: underline;
+  font-size: large;
+  font-style: bold;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Movie Recommendation Based on Emotions</h1>
+</div>
+<div class="container">
+  <div class="myDiv">
+    <p><b><h1>Select an Emotion</h1></b></p>
+    <form action="/predict" method="POST">
+      <input type="radio" id="happy" name="emotion" value="happy">
+      <label for="happy"><img src="static/img/happy.jpg" width="50" height="50"></label>
+
+      <input type="radio" id="sad" name="emotion" value="sad">
+      <label for="sad"><img src="static/img/sad.jpg" width="50" height="50"></label>
+
+      <input type="radio" id="angry" name="emotion" value="angry">
+      <label for="angry"><img src="static/img/angry.jpg" width="50" height="50"></label>
+
+      <input type="radio" id="disgust" name="emotion" value="disgust">
+      <label for="disgust"><img src="static/img/disgust.png" width="50" height="50"></label>
+
+      <input type="radio" id="think" name="emotion" value="think">
+      <label for="think"><img src="static/img/think.png" width="50" height="50"></label>
+      <br>
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  {% if data %}
+    <center><h1>Movies for {{ emotion }}</h1></center>
+    {% for movie in data %}
+      <div class="movie-box">
+        <center><span class="movie-name movie-{{ emotion }}">{{ movie.name }}</span></center>
+        <br>
+        <center><a href="{{ movie.link }}" target="_blank">Press Here</a></center>
+      </div>
+    {% endfor %}
+  {% endif %} 
+</body>
+</html>
